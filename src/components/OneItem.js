@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-function OneItem({ itemObj }) {
+function OneItem({ itemObj, removeTask }) {
   return (
     <View style={styles.OneItemContainer}>
       <BouncyCheckbox
@@ -13,7 +13,11 @@ function OneItem({ itemObj }) {
         //iconStyle={{ borderColor: "red" }}
         //innerIconStyle={{ borderWidth: 2 }}
         textStyle={styles.OneItemText}
-        onPress={(isChecked) => {}}
+        onPress={() => {
+          setTimeout(function () {
+            removeTask(itemObj.id);
+          }, 1000);
+        }}
         style={styles.CheckBlock}
       />
     </View>

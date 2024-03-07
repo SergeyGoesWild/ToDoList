@@ -11,14 +11,20 @@ import OneItem from "../components/OneItem";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 function MainScreen() {
-  const RenderItem = ({ item }) => <OneItem itemObj={item} />;
-  const [itemsData, setItemsData] = useState(data);
+  const [tasksToDo, setTasksToDo] = useState(data);
+  const [tasksDone, setTasksDone] = useState([]);
 
-  const handleDataChange = (newValue) => {
-    setItemsData(newValue);
+  const handleToDoChange = (newValue) => {
+    setTasksToDo(newValue);
   };
+  const handleDoneChange = (newValue) => {
+    setTasksDone(newValue);
+  };
+  const RenderItem = ({ item }) => (
+    <OneItem itemObj={item} removeTask={removeTask} />
+  );
 
-  const handlePlusClick = () => {
+  const addTask = () => {
     const newItem = {
       id: new Date().getTime(),
       title: "Code!!!",
@@ -26,21 +32,32 @@ function MainScreen() {
       description: "Filler text",
       done: false,
     };
-    const newValue = [newItem, ...itemsData];
-    handleDataChange(newValue);
+    const newValue = [newItem, ...tasksToDo];
+    handleToDoChange(newValue);
+  };
+
+  const removeTask = (id) => {
+    const indexToRemove = tasksToDo.findIndex((item) => item.id === id);
+    const taskToRemove = tasksToDo[indexToRemove];
+    const newToDo = tasksToDo
+      .slice(0, indexToRemove)
+      .concat(tasksToDo.slice(indexToRemove + 1));
+    handleToDoChange(newToDo);
+    const newDone = [taskToRemove, ...tasksDone];
+    handleDoneChange(newDone);
   };
 
   return (
     <>
       <View style={styles.ListContainer}>
         <FlatList
-          data={itemsData}
+          data={tasksToDo}
           keyExtractor={(item) => item.id}
           renderItem={RenderItem}
         />
       </View>
 
-      <TouchableOpacity onPress={handlePlusClick} style={styles.PlusButton}>
+      <TouchableOpacity onPress={addTask} style={styles.PlusButton}>
         <Icon name="plus" size={35} color="white" />
       </TouchableOpacity>
     </>
