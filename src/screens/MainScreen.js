@@ -21,15 +21,15 @@ function MainScreen() {
     setTasksDone(newValue);
   };
   const RenderItem = ({ item }) => (
-    <OneItem itemObj={item} removeTask={removeTask} />
+    <OneItem itemObj={item} removeTask={removeTask} updateTask={updateTask} />
   );
 
   const addTask = () => {
     const newItem = {
       id: new Date().getTime(),
-      title: "Code!!!",
+      title: "",
       priority: "",
-      description: "Filler text",
+      description: "",
       done: false,
     };
     const newValue = [newItem, ...tasksToDo];
@@ -45,6 +45,15 @@ function MainScreen() {
     handleToDoChange(newToDo);
     const newDone = [taskToRemove, ...tasksDone];
     handleDoneChange(newDone);
+  };
+
+  const updateTask = (obj) => {
+    const indexToUpdate = tasksToDo.findIndex((item) => item.id === obj.id);
+    const newToDo = tasksToDo
+      .slice(0, indexToUpdate)
+      .concat([obj])
+      .concat(tasksToDo.slice(indexToUpdate + 1));
+    handleToDoChange(newToDo);
   };
 
   return (
