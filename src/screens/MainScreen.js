@@ -12,17 +12,10 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 function MainScreen() {
   const [tasksToDo, setTasksToDo] = useState(data);
-  const [tasksDone, setTasksDone] = useState([]);
 
   const handleToDoChange = (newValue) => {
     setTasksToDo(newValue);
   };
-  const handleDoneChange = (newValue) => {
-    setTasksDone(newValue);
-  };
-  const RenderItem = ({ item }) => (
-    <OneItem itemObj={item} removeTask={removeTask} updateTask={updateTask} />
-  );
 
   const addTask = () => {
     const newItem = {
@@ -36,33 +29,48 @@ function MainScreen() {
     handleToDoChange(newValue);
   };
 
-  const removeTask = (id) => {
-    const indexToRemove = tasksToDo.findIndex((item) => item.id === id);
-    const taskToRemove = tasksToDo[indexToRemove];
+  const removeTask = (task) => {
+    const indexToRemove = tasksToDo.findIndex((item) => item.id === task.id);
     const newToDo = tasksToDo
       .slice(0, indexToRemove)
       .concat(tasksToDo.slice(indexToRemove + 1));
     handleToDoChange(newToDo);
-    const newDone = [taskToRemove, ...tasksDone];
-    handleDoneChange(newDone);
   };
 
-  const updateTask = (obj) => {
-    const indexToUpdate = tasksToDo.findIndex((item) => item.id === obj.id);
+  const updateTask = (task) => {
+    const indexToUpdate = tasksToDo.findIndex((item) => item.id === task.id);
     const newToDo = tasksToDo
       .slice(0, indexToUpdate)
-      .concat([obj])
+      .concat([task])
       .concat(tasksToDo.slice(indexToUpdate + 1));
     handleToDoChange(newToDo);
+  };
+
+  const setTaskDone = (task) => {
+    task.done = true;
+    updateTask(task);
   };
 
   return (
     <>
       <View style={styles.ListContainer}>
         <FlatList
-          data={tasksToDo}
+          data={tasksToDo.filter((item) => item.done != true)}
           keyExtractor={(item) => item.id}
-          renderItem={RenderItem}
+          renderItem={({ item }) => (
+            <OneItem
+              itemObj={item}
+              onDeleteButtonPress={() => {
+                removeTask(item);
+              }}
+              onCheckboxPress={() => {
+                setTaskDone(item);
+              }}
+              onSubmit={() => {
+                updateTask(item);
+              }}
+            />
+          )}
         />
       </View>
 

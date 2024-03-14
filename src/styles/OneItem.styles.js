@@ -21,11 +21,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#fff",
   },
   OneItemText: {
     color: "white",
     fontSize: 18,
+  },
+  DescriptionText: {
+    height: 90,
+    borderRadius: 15,
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 20,
+    width: "90%",
+    color: "black",
+    marginTop: 3,
+    paddingTop: 8,
   },
   CheckBlock: {
     paddingLeft: 5,
@@ -38,17 +48,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: "#fff",
   },
-  inputNewTitle: {
-    height: 40,
-    borderRadius: 15,
-    borderColor: "gray",
-    borderWidth: 1,
-    paddingHorizontal: 20,
-    width: "90%",
-    color: "#fff",
-    backgroundColor: "#edfa78",
-    marginBottom: 3,
-  },
   inputDetails: {
     height: 90,
     borderRadius: 15,
@@ -56,9 +55,9 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 20,
     width: "90%",
-    color: "#fff",
-    backgroundColor: "#edfa78",
     marginTop: 3,
+    paddingTop: 8,
+    justifyContent: "flex-start",
   },
   BinButton: {
     backgroundColor: "#ff683b",
@@ -81,5 +80,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 0,
+  },
+  ChevronUp: {
+    transform: [{ rotate: "180deg" }],
+  },
+  ChevronDown: {
+    transform: [{ rotate: "0deg" }],
   },
 });
