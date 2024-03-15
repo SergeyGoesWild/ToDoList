@@ -52,7 +52,7 @@ function MainScreen() {
   };
 
   return (
-    <>
+    <View style={styles.Container}>
       <View style={styles.ListContainer}>
         <FlatList
           data={tasksToDo.filter((item) => item.done != true)}
@@ -77,19 +77,24 @@ function MainScreen() {
       <TouchableOpacity onPress={addTask} style={styles.PlusButton}>
         <Icon name="plus" size={35} color="white" />
       </TouchableOpacity>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  Container: {
+    flex: 1,
+    backgroundColor: "#f2f2ff",
+  },
   ListContainer: {
     flex: 1,
     flexDirection: "row",
     marginHorizontal: 30,
+    marginTop: 20,
   },
   PlusButton: {
     position: "absolute",
-    top: 650,
+    top: 550,
     right: 30,
     backgroundColor: "#ef709d",
     padding: 15,

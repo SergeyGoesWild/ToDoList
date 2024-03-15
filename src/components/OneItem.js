@@ -6,7 +6,6 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
-import ItemDetails from "./ItemDetails";
 import { styles } from "../styles/OneItem.styles";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import ChevronIcon from "react-native-vector-icons/Entypo";

@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import MainScreen from "./MainScreen";
 import DoneScreen from "./DoneScreen";
-const tabs = createMaterialTopTabNavigator();
 
 function NavigationScreen() {
+  const tabs = createMaterialTopTabNavigator();
   return (
-    <tabs.Navigator>
-      <tabs.Screen name="Tasks To Do" component={MainScreen} />
-      <tabs.Screen name="Tasks Done" component={DoneScreen} />
-    </tabs.Navigator>
+    <NavigationContainer>
+      <tabs.Navigator style={{ backgroundColor: "blue" }}>
+        <tabs.Screen name="Tasks To Do" component={MainScreen} />
+        <tabs.Screen name="Tasks Done" component={DoneScreen} />
+      </tabs.Navigator>
+    </NavigationContainer>
   );
 }
 
