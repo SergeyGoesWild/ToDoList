@@ -20,9 +20,10 @@ function OneItem({ itemObj, onDeleteButtonPress }) {
   return (
     <TouchableWithoutFeedback onPress={handleClick}>
       <View style={styles.OneItemContainer}>
-        <View style={styles.TitleContainer}>
+        <View style={styles.TitleContainer} pointerEvents="none">
           <BouncyCheckbox
             size={20}
+            isChecked={true}
             fillColor="pink"
             unfillColor="#FFFFFF"
             text={itemObj.title}
@@ -30,6 +31,9 @@ function OneItem({ itemObj, onDeleteButtonPress }) {
             //innerIconStyle={{ borderWidth: 2 }}
             textStyle={styles.OneItemText}
             style={styles.CheckBlock}
+            onPress={() => {
+              this.isChecked = true;
+            }}
           />
 
           <ChevronIcon
