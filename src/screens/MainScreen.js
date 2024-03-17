@@ -6,16 +6,11 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import data from "../components/DataMock";
 import OneItem from "../components/OneItem";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-function MainScreen() {
-  const [tasksToDo, setTasksToDo] = useState(data);
-
-  const handleToDoChange = (newValue) => {
-    setTasksToDo(newValue);
-  };
+function MainScreen({ route }) {
+  const { tasks, handleTasksChange } = route.params;
 
   const addTask = () => {
     const newItem = {
@@ -25,25 +20,25 @@ function MainScreen() {
       description: "",
       done: false,
     };
-    const newValue = [newItem, ...tasksToDo];
-    handleToDoChange(newValue);
+    const newValue = [newItem, ...tasks];
+    handleTasksChange(newValue);
   };
 
   const removeTask = (task) => {
-    const indexToRemove = tasksToDo.findIndex((item) => item.id === task.id);
-    const newToDo = tasksToDo
+    const indexToRemove = tasks.findIndex((item) => item.id === task.id);
+    const newToDo = tasks
       .slice(0, indexToRemove)
-      .concat(tasksToDo.slice(indexToRemove + 1));
-    handleToDoChange(newToDo);
+      .concat(tasks.slice(indexToRemove + 1));
+    handleTasksChange(newToDo);
   };
 
   const updateTask = (task) => {
-    const indexToUpdate = tasksToDo.findIndex((item) => item.id === task.id);
-    const newToDo = tasksToDo
+    const indexToUpdate = tasks.findIndex((item) => item.id === task.id);
+    const newToDo = tasks
       .slice(0, indexToUpdate)
       .concat([task])
-      .concat(tasksToDo.slice(indexToUpdate + 1));
-    handleToDoChange(newToDo);
+      .concat(tasks.slice(indexToUpdate + 1));
+    handleTasksChange(newToDo);
   };
 
   const setTaskDone = (task) => {
@@ -55,7 +50,7 @@ function MainScreen() {
     <View style={styles.Container}>
       <View style={styles.ListContainer}>
         <FlatList
-          data={tasksToDo.filter((item) => item.done != true)}
+          data={tasks.filter((item) => item.done != true)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <OneItem

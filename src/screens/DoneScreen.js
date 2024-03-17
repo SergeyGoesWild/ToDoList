@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import data from "../components/DataMock";
 import OneItemDone from "../components/OneItemDone";
 
-function DoneScreen() {
-  const [tasksToDo, setTasksToDo] = useState(data);
+function DoneScreen({ route }) {
+  const { tasks, handleTasksChange } = route.params;
 
-  const handleToDoChange = (newValue) => {
-    setTasksToDo(newValue);
+  const removeTask = (task) => {
+    const indexToRemove = tasks.findIndex((item) => item.id === task.id);
+    const newToDo = tasks
+      .slice(0, indexToRemove)
+      .concat(tasks.slice(indexToRemove + 1));
+    handleTasksChange(newToDo);
   };
 
   return (
     <View style={styles.Container}>
       <View style={styles.ListContainer}>
         <FlatList
-          data={tasksToDo.filter((item) => item.done != false)}
+          data={tasks.filter((item) => item.done != false)}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <OneItemDone
               itemObj={item}
               onDeleteButtonPress={() => {
-                console.log("***");
+                removeTask(item);
               }}
             />
           )}
