@@ -25,14 +25,14 @@ const data = [
     title: "Go to the gym",
     priority: "",
     description: "Work out is a must",
-    done: false,
+    done: true,
   },
   {
     id: 5,
     title: "Go see Kattie",
     priority: "",
     description: "Ain't she gorgeous?",
-    done: false,
+    done: true,
   },
   // {
   //   id: 6,
