@@ -10,7 +10,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import ChevronIcon from "react-native-vector-icons/Entypo";
 import BinIcon from "react-native-vector-icons/FontAwesome6";
 
-function OneItem({ itemObj, onDeleteButtonPress }) {
+function OneItemDone({ itemObj }) {
   const [showDetails, setShowDetails] = useState(false);
 
   const handleClick = () => {
@@ -47,10 +47,7 @@ function OneItem({ itemObj, onDeleteButtonPress }) {
           <>
             <Text style={styles.DescriptionText}>{itemObj.description}</Text>
             <View style={styles.ButtonContainer}>
-              <TouchableOpacity
-                style={styles.BinButton}
-                onPress={onDeleteButtonPress}
-              >
+              <TouchableOpacity style={styles.BinButton}>
                 <BinIcon name="trash-can" size={20} color="white" />
               </TouchableOpacity>
             </View>
@@ -61,4 +58,4 @@ function OneItem({ itemObj, onDeleteButtonPress }) {
   );
 }
 
-export default OneItem;
+export default OneItemDone;

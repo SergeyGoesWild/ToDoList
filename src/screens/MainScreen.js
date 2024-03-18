@@ -1,50 +1,12 @@
-import React, { useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  FlatList,
-  View,
-  StyleSheet,
-} from "react-native";
+import React, { useContext, useState } from "react";
+import { TouchableOpacity, FlatList, View, StyleSheet } from "react-native";
 import OneItem from "../components/OneItem";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { contextObj } from "../components/ContextProvider";
 
-function MainScreen({ route }) {
-  const { tasks, handleTasksChange } = route.params;
-
-  const addTask = () => {
-    const newItem = {
-      id: new Date().getTime(),
-      title: "",
-      priority: "",
-      description: "",
-      done: false,
-    };
-    const newValue = [newItem, ...tasks];
-    handleTasksChange(newValue);
-  };
-
-  const removeTask = (task) => {
-    const indexToRemove = tasks.findIndex((item) => item.id === task.id);
-    const newToDo = tasks
-      .slice(0, indexToRemove)
-      .concat(tasks.slice(indexToRemove + 1));
-    handleTasksChange(newToDo);
-  };
-
-  const updateTask = (task) => {
-    const indexToUpdate = tasks.findIndex((item) => item.id === task.id);
-    const newToDo = tasks
-      .slice(0, indexToUpdate)
-      .concat([task])
-      .concat(tasks.slice(indexToUpdate + 1));
-    handleTasksChange(newToDo);
-  };
-
-  const setTaskDone = (task) => {
-    task.done = true;
-    updateTask(task);
-  };
+function MainScreen() {
+  const { tasks, addTask, removeTask, updateTask, setTaskDone } =
+    useContext(contextObj);
 
   return (
     <View style={styles.Container}>

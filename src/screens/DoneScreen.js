@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
-import data from "../components/DataMock";
 import OneItemDone from "../components/OneItemDone";
+import { contextObj } from "../components/ContextProvider";
 
-function DoneScreen({ route }) {
-  const { tasks, handleTasksChange } = route.params;
+function DoneScreen() {
+  const { tasks, handleTasksChange } = useContext(contextObj);
 
   const removeTask = (task) => {
     const indexToRemove = tasks.findIndex((item) => item.id === task.id);
@@ -20,14 +20,7 @@ function DoneScreen({ route }) {
         <FlatList
           data={tasks.filter((item) => item.done != false)}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <OneItemDone
-              itemObj={item}
-              onDeleteButtonPress={() => {
-                removeTask(item);
-              }}
-            />
-          )}
+          renderItem={({ item }) => <OneItemDone itemObj={item} />}
         />
       </View>
     </View>
